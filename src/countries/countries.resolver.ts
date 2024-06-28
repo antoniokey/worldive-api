@@ -1,17 +1,18 @@
-import { Query } from '@nestjs/graphql';
+import { Args, Query } from '@nestjs/graphql';
 import { Injectable } from '@nestjs/common';
 
 import { Country } from './dto/country.dto';
 import { CountriesService } from './countries.service';
+import { GetCountriesArgs } from './countries-args';
 
 @Injectable()
 export class CountriesResolver {
   constructor(private readonly countriesService: CountriesService) {}
 
   @Query((_returns) => [Country], {
-    name: 'countries',
+    name: 'getCountries',
   })
-  async countries() {
-    return this.countriesService.getAll();
+  async getCountries(@Args('input') input: GetCountriesArgs) {
+    return this.countriesService.getAll(input);
   }
 }
