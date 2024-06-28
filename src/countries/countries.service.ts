@@ -12,10 +12,12 @@ export class CountriesService {
     private readonly countriesRepository: Repository<CountryEntity>,
   ) {}
 
-  public async getAll(input: GetCountriesArgs): Promise<any[]> {
+  public async getAll(input: GetCountriesArgs): Promise<CountryEntity[]> {
     return this.countriesRepository
       .createQueryBuilder('country')
-      .where('country.name like :name', { name: input.search ? `%${input.search}%` : null })
+      .where('country.name like :name', {
+        name: input.search ? `%${input.search}%` : null,
+      })
       .getMany();
   }
 }

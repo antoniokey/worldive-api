@@ -12,7 +12,7 @@ export class CountriesResolver {
   @Query((_returns) => [Country], {
     name: 'getCountries',
   })
-  async getCountries(@Args('input') input: GetCountriesArgs) {
+  public async getCountries(@Args('input') input: GetCountriesArgs) {
     return this.countriesService.getAll(input);
   }
 }

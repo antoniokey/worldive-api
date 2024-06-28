@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from 'nestjs-config';
 import * as path from 'path';
 
 import { CountriesModule } from './countries/countries.module';
+import { TaxisModule } from './taxis/taxis.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CountriesModule } from './countries/countries.module';
       autoSchemaFile: 'schema.gql',
     }),
     CountriesModule,
+    TaxisModule,
   ],
 })
 export class AppModule {}

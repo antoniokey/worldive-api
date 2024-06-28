@@ -14,10 +14,23 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Taxi {
+  id: String!
+  country_id: String!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type Query {
   getCountries(input: GetCountriesArgs!): [Country!]!
+  getTaxis(input: GetTaxisArgs!): [Taxi!]!
 }
 
 input GetCountriesArgs {
   search: String
+}
+
+input GetTaxisArgs {
+  countryId: String!
 }
