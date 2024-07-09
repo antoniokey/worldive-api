@@ -5,8 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from 'nestjs-config';
 import * as path from 'path';
 
-import { CountriesModule } from './countries/countries.module';
-import { TaxisModule } from './taxis/taxis.module';
+import { CountriesModule } from './modules/countries/countries.module';
+import { ServiceModule } from './modules/service/service.module';
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { TaxisModule } from './taxis/taxis.module';
       autoSchemaFile: 'schema.gql',
     }),
     CountriesModule,
-    TaxisModule,
+    ServiceModule,
   ],
 })
 export class AppModule {}

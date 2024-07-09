@@ -1,12 +1,12 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class Country {
+export class Rental {
   @Field(() => String)
-  id!: string;
+  public id!: string;
 
   @Field(() => String)
-  name!: string;
+  public name!: string;
 
   @Field(() => Date)
   public created_at!: Date;

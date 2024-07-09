@@ -1,8 +1,3 @@
-/* eslint-disable import/first */
-if (process.env.DB_URL === '') {
-  delete process.env.DB_URL;
-}
-
 import * as path from 'path';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
@@ -15,4 +10,3 @@ const dataSource = new DataSource({
 });
 
 export default dataSource;
-/* eslint-enable import/first */

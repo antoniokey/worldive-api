@@ -1,18 +1,20 @@
+import { CountryEntity } from '@src/modules/countries/entity/country.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'country' })
-export class CountryEntity {
+@Entity({ name: 'taxi' })
+export class TaxiEntity {
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  public id!: string;
 
   @Column({ type: 'varchar' })
-  name!: string;
+  public name!: string;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -26,4 +28,7 @@ export class CountryEntity {
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   public updated_at!: Date;
+
+  @ManyToMany(() => CountryEntity, (country) => country.taxis)
+  public countries: CountryEntity[];
 }

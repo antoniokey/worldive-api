@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { GetTaxisArgs } from './taxis-args';
 import { TaxiEntity } from './entity/taxi.entity';
+import { Taxi } from './dto/taxi.dto';
 
 @Injectable()
 export class TaxisService {
@@ -12,10 +12,11 @@ export class TaxisService {
     private readonly taxisRepository: Repository<TaxiEntity>,
   ) {}
 
-  public async getAll(input: GetTaxisArgs): Promise<TaxiEntity[]> {
+  public async getAll(countryId: string): Promise<Taxi[]> {
     return this.taxisRepository
-      .createQueryBuilder('country_taxi')
-      .where('country_taxi.country_id = :countryId', { countryId: input.countryId })
+      .createQueryBuilder('taxi')
+      .innerJoin('taxi.countries', 'country')
+      .where('country.id = :id', { id: countryId })
       .getMany();
   }
 }

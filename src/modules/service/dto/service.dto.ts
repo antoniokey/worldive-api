@@ -1,22 +1,16 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Country } from '@src/countries/dto/country.dto';
 
 @ObjectType()
-export class Taxi {
+export class ServiceData {
   @Field(() => String)
-  id!: string;
+  public id!: string;
 
   @Field(() => String)
-  country_id: string;
-
-  @Field(() => String)
-  name!: string;
+  public name!: string;
 
   @Field(() => Date)
   public created_at!: Date;
 
   @Field(() => Date)
   public updated_at!: Date;
-
-  public country: Country;
 }

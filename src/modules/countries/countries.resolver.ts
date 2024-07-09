@@ -9,7 +9,7 @@ import { GetCountriesArgs } from './countries-args';
 export class CountriesResolver {
   constructor(private readonly countriesService: CountriesService) {}
 
-  @Query((_returns) => [Country], {
+  @Query(() => [Country], {
     name: 'getCountries',
   })
   public async getCountries(@Args('input') input: GetCountriesArgs) {

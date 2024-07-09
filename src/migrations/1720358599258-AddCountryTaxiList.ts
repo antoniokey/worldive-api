@@ -255,7 +255,10 @@ const taxisList = [
   },
 ];
 
-export class AddTaxisList1719580636538 implements MigrationInterface {
+const getTaxis = (taxis: string[]) =>
+  taxis.map((taxi) => `'${taxi}'`).join(',');
+
+export class AddCountryTaxiList1720358599258 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     for (const { countryName, taxis } of taxisList) {
       const [country] = await queryRunner.query(
@@ -263,11 +266,19 @@ export class AddTaxisList1719580636538 implements MigrationInterface {
         [countryName],
       );
 
-      for (const taxi of taxis) {
-        await queryRunner.query(
-          `INSERT INTO country_taxi (country_id, name) VALUES ($1, $2)`,
-          [country.id, taxi],
+      if (country) {
+        const foundTaxis = await queryRunner.query(
+          `SELECT id FROM taxi WHERE name IN (${getTaxis(taxis)})`,
         );
+
+        if (foundTaxis?.length) {
+          for (const foundTaxi of foundTaxis) {
+            await queryRunner.query(
+              `INSERT INTO country_taxi (country_id, taxi_id) VALUES ($1, $2)`,
+              [country.id, foundTaxi.id],
+            );
+          }
+        }
       }
     }
   }
